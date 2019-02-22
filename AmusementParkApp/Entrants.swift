@@ -2,21 +2,22 @@ import Foundation
 
 /*
  
- This project is divided into 3 parts.. 1. To define Entrant types 2. To define passes 3. Test cases. To make it convenient for you, I have called the function which prints the test cases in the initial viewDidLoad(). So, when you remove the comments inside the function and press the start button to execute the app.. All the statements will be printed.
+My notes to justify how I have achieved each criteria
  
- And my notes to justify how I have achieved each criteria
+ CRITERIA 1: I have used all the major UIElements and in addition used picker views.
  
- CRITERIA 1: Inheritance is used for Guest objects -> Guest, VIPGuest, Child
- Protocol is used as a type to couple types of Employee -> protocol Employee
- Struct is used to design guest pass
+ CRITERIA 2: In viewdidLoad of the initial view controller -> All properties are disabled.
+            When an entrant is selected (Guest, Manager, Employees, Vendor): The properties are enabled
  
- CRITERIA 2: Enumerations are used for defining Entrant types (Entrants), discount items (discountItems), areas within the park (Area) and the errors the app can throw.
+ CRITERIA 3: Passes are generated as per the rules in the generatePass function called in the intial view.
  
- CRITERIA 3: convenience inits for Entrants are used since the user might not enter stored properties while creating an instance of Entrants. This allows for scope to throw errors since these stored properties are optionals in case there are missing properties. A convinience init is also present at PassForEmployee.. so if the user has not declared stored properties during Entrant object initialisation, the user can initialise the stored properties of Entrants during the instance of pass object. I have used a flag.. "propertiesEntered"... which is turned true when the stored properties are entered. I have used this flag since at two instances the optional stored properties can be defined. So if stored properties are defined during Entrant object initialisation.. then the Pass object's convinience init method will be non-functional.
- CRITERIA 4: Stored properties of required business information being optional.. appropriate detailed errors can be thrown according to the missing property causing the problem.
- CRITERIA 5: Swipe methods for area access, discount access, and to skip ride lines.
- Appropriate errors are thrown if the pass is not generated or access is denied
- CRITERIA 6: Test cases are commented. Two possible actions the user can take are: 1) generatePass() for checking if the pass is valid or not according to the business rules matrix of required information 2) A swipe method. Also various possible scenarios are shown when errors could appear.
+ CRITERIA 4 & 5: four major swipe functions can be called from each pass object in the second view.
+ 
+ CRITERIA 6: Populate data function of the view controller fills in the details as per the business matrix rules.
+ 
+ CRITERIA 7: Protocols are used to couple Employees. Inheritance is used to couple Guest entrants.
+ 
+ CRITERIA 8 & 9: Appropriate errors are thrown and caught shown in the view with UIAlert informing whether all properties are missing, whether a specific property is missing, whether the user has selected an Entrant, or has entered an invalid input (Birthday for child). To avoid errors in Dates.. I have used Date pickers in the text field.
  
  */
 
