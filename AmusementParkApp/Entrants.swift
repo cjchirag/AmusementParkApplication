@@ -62,12 +62,13 @@ enum discountItems {
     case merchandise
 }
 
-enum Area {
-    case Amusement
-    case Kitchen
-    case RideControl
-    case Maintenance
-    case Office
+enum Area: String {
+    case Amusement = "Amusement"
+    case Kitchen = "Kitchen"
+    case RideControl = "Ride Control"
+    case Maintenance = "Maintenance"
+    case Office = "Office"
+    case PlaceHolder
 }
 
 enum VendorCompanies: String {
@@ -255,7 +256,7 @@ protocol Employee: Passable {
     var project: String? {get set}
     var SSN: String? {get set}
     var Birthday: String? {get set}
-    var accessAreas: [Area] {get set}
+    var accessAreas: [String] {get set}
     var skipRideAccess: Bool {get set}
     var discountEligible: Bool { get set }
     var Age: Int? {get set}
@@ -314,7 +315,7 @@ class FoodServices: Employee {
         self.Birthday = DateOfBirth
     }
     
-    var accessAreas: [Area] = [.Amusement, .Kitchen]
+    var accessAreas: [String] = [Area.Amusement.rawValue, Area.Kitchen.rawValue]
     var skipRideAccess: Bool = false
     let availDiscount: [discountItems : Double] = [.food: 15.0, .merchandise: 25.0]
     
@@ -370,7 +371,7 @@ class RideServices: Employee, Passable {
         self.Birthday = DateOfBirth
     }
     
-    var accessAreas: [Area] = [.Amusement, .RideControl]
+    var accessAreas: [String] = [Area.Amusement.rawValue, Area.RideControl.rawValue]
     var skipRideAccess: Bool = false
     var discountEligible: Bool = true
     let availDiscount: [discountItems : Double] = [.food: 15.0, .merchandise: 25.0]
@@ -424,7 +425,7 @@ class MaintenanceServices: Employee, Passable {
         self.Birthday = DateOfBirth
     }
     
-    var accessAreas: [Area] = [.Amusement, .Maintenance, .RideControl, .Kitchen]
+    var accessAreas: [String] = [Area.Amusement.rawValue, Area.Maintenance.rawValue, Area.RideControl.rawValue, Area.Kitchen.rawValue]
     
     var skipRideAccess: Bool = false
     var discountEligible: Bool = true
@@ -486,11 +487,11 @@ class Manager: Employee, Passable {
         self.ManagerType = managerType
     }
     
-    var accessAreas: [Area] = [.Amusement, .Kitchen, .Maintenance, .Office, .RideControl]
+    var accessAreas: [String] = [Area.Amusement.rawValue, Area.Kitchen.rawValue, Area.Maintenance.rawValue, Area.Office.rawValue, Area.RideControl.rawValue]
     
     var skipRideAccess: Bool = false
     var discountEligible: Bool = true
-    let availDiscount: [discountItems : Double] = [.food: 15.0, .merchandise: 25.0]
+    let availDiscount: [discountItems : Double] = [.food: 25.0, .merchandise: 25.0]
     
 }
 
@@ -543,7 +544,7 @@ class Contractor: Employee, Passable {
         self.project = project
     }
     
-    var accessAreas: [Area] = [.Amusement, .Kitchen]
+    var accessAreas: [String] = []
     var skipRideAccess: Bool = false
     var discountEligible: Bool = false
     let availDiscount: [discountItems : Double] = [:]

@@ -13,8 +13,10 @@
 		460FFBA6210303D600EEADDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 460FFBA5210303D600EEADDB /* Assets.xcassets */; };
 		460FFBA9210303D600EEADDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 460FFBA7210303D600EEADDB /* LaunchScreen.storyboard */; };
 		460FFBB12103041000EEADDB /* Entrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460FFBB02103040F00EEADDB /* Entrants.swift */; };
-		460FFBB32103043D00EEADDB /* Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460FFBB22103043D00EEADDB /* Pass.swift */; };
+		460FFBB32103043D00EEADDB /* PassForVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460FFBB22103043D00EEADDB /* PassForVendor.swift */; };
 		5CC34479221C7CF1008CD2BB /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC34478221C7CF1008CD2BB /* SecondViewController.swift */; };
+		5CFB9B7B222076EB005A3221 /* PassForGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB9B7A222076EB005A3221 /* PassForGuest.swift */; };
+		5CFB9B7D2220773A005A3221 /* PassForEmployee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB9B7C2220773A005A3221 /* PassForEmployee.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +28,10 @@
 		460FFBA8210303D600EEADDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		460FFBAA210303D600EEADDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		460FFBB02103040F00EEADDB /* Entrants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entrants.swift; sourceTree = "<group>"; };
-		460FFBB22103043D00EEADDB /* Pass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pass.swift; sourceTree = "<group>"; };
+		460FFBB22103043D00EEADDB /* PassForVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassForVendor.swift; sourceTree = "<group>"; };
 		5CC34478221C7CF1008CD2BB /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		5CFB9B7A222076EB005A3221 /* PassForGuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassForGuest.swift; sourceTree = "<group>"; };
+		5CFB9B7C2220773A005A3221 /* PassForEmployee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassForEmployee.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				460FFBB02103040F00EEADDB /* Entrants.swift */,
-				460FFBB22103043D00EEADDB /* Pass.swift */,
+				460FFBB22103043D00EEADDB /* PassForVendor.swift */,
+				5CFB9B7A222076EB005A3221 /* PassForGuest.swift */,
+				5CFB9B7C2220773A005A3221 /* PassForEmployee.swift */,
 				460FFBA0210303D500EEADDB /* ViewController.swift */,
 				5CC34478221C7CF1008CD2BB /* SecondViewController.swift */,
 				460FFB9E210303D500EEADDB /* AppDelegate.swift */,
@@ -144,9 +150,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				460FFBB32103043D00EEADDB /* Pass.swift in Sources */,
+				460FFBB32103043D00EEADDB /* PassForVendor.swift in Sources */,
 				460FFBA1210303D500EEADDB /* ViewController.swift in Sources */,
 				460FFBB12103041000EEADDB /* Entrants.swift in Sources */,
+				5CFB9B7D2220773A005A3221 /* PassForEmployee.swift in Sources */,
+				5CFB9B7B222076EB005A3221 /* PassForGuest.swift in Sources */,
 				5CC34479221C7CF1008CD2BB /* SecondViewController.swift in Sources */,
 				460FFB9F210303D500EEADDB /* AppDelegate.swift in Sources */,
 			);

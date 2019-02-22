@@ -165,6 +165,36 @@ class SecondViewController: UIViewController {
         OfficeButton.isEnabled = false
         OfficeButton.isHidden = true
     }
+    @IBAction func skipAccess(_ sender: Any) {
+        if guestActive {
+            if ThePassForGuest?.Entrant.skipRideAccess ?? false {
+                TestResults.text = "You are eligible to skip the line"
+                TestResults.backgroundColor = UIColor.green
+            } else {
+                TestResults.text = "You are not eligible to skip the line"
+                TestResults.backgroundColor = UIColor.red
+            }
+        } else if employeeActive {
+            if ThePassForEmployee?.Entrant.skipRideAccess ?? false {
+                TestResults.text = "You are eligible to skip the line"
+                TestResults.backgroundColor = UIColor.green
+            } else {
+                TestResults.text = "You are not eligible to skip the line"
+                TestResults.backgroundColor = UIColor.red
+            }
+        } else if vendorActive {
+            if ThePassForVendor?.Entrant.skipRideAccess ?? false {
+                TestResults.text = "You are eligible to skip the line"
+                TestResults.backgroundColor = UIColor.green
+            } else {
+                TestResults.text = "You are not eligible to skip the line"
+                TestResults.backgroundColor = UIColor.red
+            }
+        } else {
+            TestResults.text = "Test Results"
+            TestResults.backgroundColor = UIColor.white
+        }
+    }
     
     @IBAction func AmusementCheck(_ sender: Any) {
         if guestActive {

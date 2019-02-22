@@ -540,7 +540,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="924" height="200"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pM9-B7-qe5">
-                                                <rect key="frame" x="0.0" y="75" width="302.5" height="50"/>
+                                                <rect key="frame" x="0.0" y="75" width="225" height="50"/>
                                                 <color key="backgroundColor" red="0.2156862745" green="0.36862745099999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="udn-AA-nNh"/>
@@ -558,7 +558,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9M-z9-ilU">
-                                                <rect key="frame" x="310.5" y="75" width="303" height="50"/>
+                                                <rect key="frame" x="233" y="75" width="225" height="50"/>
                                                 <color key="backgroundColor" red="0.2156862745" green="0.36862745099999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="f9W-Vq-ECR"/>
@@ -576,7 +576,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuS-wi-5us">
-                                                <rect key="frame" x="621.5" y="75" width="302.5" height="50"/>
+                                                <rect key="frame" x="466" y="75" width="225" height="50"/>
                                                 <color key="backgroundColor" red="0.2156862745" green="0.36862745099999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Vfj-ZY-rZn"/>
@@ -591,6 +591,24 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="discountAccess:" destination="5Ax-0q-mZf" eventType="touchUpInside" id="MLn-Fy-Vr3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4J-Is-fVe">
+                                                <rect key="frame" x="699" y="75" width="225" height="50"/>
+                                                <color key="backgroundColor" red="0.2156862745" green="0.36862745099999999" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="nnH-zW-zu1"/>
+                                                </constraints>
+                                                <state key="normal" title="Skip the line?">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="skipAccess:" destination="5Ax-0q-mZf" eventType="touchUpInside" id="dLU-37-nHE"/>
                                                 </connections>
                                             </button>
                                         </subviews>

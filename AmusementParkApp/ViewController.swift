@@ -561,6 +561,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 let alert = UIAlertController(title: "Error", message: ErrorsForGuest.AgeIsMissing.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForGuest.invalidZip {
+                let alert = UIAlertController(title: "Error", message: ErrorsForGuest.invalidZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         } else if Entrant == .Senior {
             // ZIP CODE VALIDATION
@@ -667,6 +671,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.InvalidZip {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.InvalidZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         } else if Entrant == .RideServices {
             do {
@@ -731,6 +739,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.InvalidZip {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.InvalidZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         } else if Entrant == .MaintenanceServices {
             do {
@@ -793,6 +805,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             } catch ErrorsForEmployees.MissingDateOfBirth {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.InvalidZip {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.InvalidZip.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -864,6 +880,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.InvalidZip {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.InvalidZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         } else if Entrant == .Contractor {
             do {
@@ -931,6 +951,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             } catch ErrorsForEmployees.MissingDateOfBirth {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.InvalidZip {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.InvalidZip.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
