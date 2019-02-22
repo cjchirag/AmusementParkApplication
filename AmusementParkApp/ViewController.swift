@@ -1006,26 +1006,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func populateData(_ sender: Any) {
         if subTracker.last == .Child {
             DateOfBirthField.text = "24/06/2000"
+            DateOfBirthField.isUserInteractionEnabled = true
             SSNField.text = nil
-            ProjectField.text = nil
-            FirstNameField.text = nil
-            LastNameField.text = nil
-            CompanyField.text = nil
-            DateOfVisitField.text = nil
-            StreetAddressField.text = nil
-            CityField.text = nil
-            StateField.text = nil
-            ZipField.text = nil
-            
             SSNField.isUserInteractionEnabled = false
+            ProjectField.text = nil
             ProjectField.isUserInteractionEnabled = false
+            FirstNameField.text = nil
             FirstNameField.isUserInteractionEnabled = false
+            LastNameField.text = nil
             LastNameField.isUserInteractionEnabled = false
+            CompanyField.text = nil
             CompanyField.isUserInteractionEnabled = false
+            DateOfVisitField.text = nil
             DateOfVisitField.isUserInteractionEnabled = false
+            StreetAddressField.text = nil
             StreetAddressField.isUserInteractionEnabled = false
+            CityField.text = nil
             CityField.isUserInteractionEnabled = false
+            StateField.text = nil
             StateField.isUserInteractionEnabled = false
+            ZipField.text = nil
             ZipField.isUserInteractionEnabled = false
         } else if subTracker.last == .Adult || subTracker.last == .VIP {
             DateOfBirthField.text = nil
