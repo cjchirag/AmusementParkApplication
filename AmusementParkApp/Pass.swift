@@ -22,7 +22,7 @@ enum swipeErrors: String, Error {
 /// Errors specific to guest pass
 enum ErrorsForGuest: String, Error {
     case ThisEntrantIsNotAChild = "The Entrant is not a child"
-    case AgeIsMissing = "The age of the child is missing"
+    case AgeIsMissing = "The age is missing"
     case passNotGenerated = "Pass is not valid"
 }
 /// An object to represent the functions and properties of a guest pass
@@ -39,7 +39,7 @@ class PassForGuest: aPass {
         if Entrant is Child {
             guard let childGuest = Entrant as? Child else { throw ErrorsForGuest.ThisEntrantIsNotAChild }
             
-            if childGuest.Age < 5 && childGuest.Age >= 0 {
+            if childGuest.Age < 5 && childGuest.Age >= 0 && childGuest.Birthday != "" {
                 self.Entrant.passGenerated = true
                 print("The age is \(childGuest.Age)")
                 return true
@@ -49,21 +49,23 @@ class PassForGuest: aPass {
                 throw ErrorsForGuest.ThisEntrantIsNotAChild
             }
         } else if Entrant is seasonPassGuest {
-            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" {
+            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" && self.Entrant.Birthday == "" {
                 self.Entrant.passGenerated = false
                 throw ErrorsForEmployees.AllDetailsMissing
-            } else if self.Entrant.firstName == "" {
+            } else if self.Entrant.firstName == "" || self.Entrant.firstName == nil {
                 throw ErrorsForEmployees.MissingFirstName
-            } else if self.Entrant.lastName == "" {
+            } else if self.Entrant.lastName == "" || self.Entrant.lastName == nil {
                 throw ErrorsForEmployees.MissingLastName
-            }  else if self.Entrant.streetAddress == "" {
+            }  else if self.Entrant.streetAddress == "" || self.Entrant.streetAddress == nil {
                 throw ErrorsForEmployees.MissingAddress
-            }  else if self.Entrant.city == "" {
+            }  else if self.Entrant.city == "" || self.Entrant.city == nil {
                 throw ErrorsForEmployees.MissingCity
-            }  else if self.Entrant.state == "" {
+            }  else if self.Entrant.state == "" || self.Entrant.state == nil {
                 throw ErrorsForEmployees.MissingState
-            }  else if self.Entrant.zip == "" {
+            }  else if self.Entrant.zip == "" || self.Entrant.zip == nil {
                 throw ErrorsForEmployees.MissingZip
+            } else if self.Entrant.Birthday == "" || self.Entrant.Birthday == nil {
+                throw ErrorsForGuest.AgeIsMissing
             } else {
                 self.Entrant.passGenerated = true
                 return true
@@ -73,11 +75,11 @@ class PassForGuest: aPass {
             if self.Entrant.firstName == "" && self.Entrant.lastName == "" && SeniorGuest.Birthday == "" {
                 self.Entrant.passGenerated = false
                 throw ErrorsForEmployees.AllDetailsMissing
-            } else if self.Entrant.firstName == "" {
+            } else if self.Entrant.firstName == "" || self.Entrant.firstName == nil {
                 throw ErrorsForEmployees.MissingFirstName
-            } else if self.Entrant.lastName == "" {
+            } else if self.Entrant.lastName == "" || self.Entrant.lastName == nil {
                 throw ErrorsForEmployees.MissingLastName
-            } else if SeniorGuest.Birthday == "" {
+            } else if SeniorGuest.Birthday == "" || self.Entrant.Birthday == nil {
                 throw ErrorsForGuest.AgeIsMissing
             } else {
                 self.Entrant.passGenerated = true
@@ -175,6 +177,8 @@ enum ErrorsForEmployees: String, Error {
     case MissingDateOfBirth = "The date of birth is missing"
     case MissingDateOfVisit = "The date of visit is missing"
     case MissingProject = "The contractor's project is missing"
+    case MissingSSN = "The SSN is missing"
+    case MissingManagerType = "The type of manager is missing"
 }
 class PassForEmployee {
     var Entrant: Employee
@@ -185,41 +189,78 @@ class PassForEmployee {
     
     func generatePass() throws -> Bool {
         if self.Entrant is Contractor {
-            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" {
+            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" && self.Entrant.SSN == "" && self.Entrant.Birthday == "" && self.Entrant.project == "" {
                 self.Entrant.passGenerated = false
                 throw ErrorsForEmployees.AllDetailsMissing
-            } else if self.Entrant.firstName == "" {
+            } else if self.Entrant.firstName == "" || self.Entrant.firstName == nil {
                 throw ErrorsForEmployees.MissingFirstName
-            } else if self.Entrant.lastName == "" {
+            } else if self.Entrant.lastName == "" || self.Entrant.lastName == nil {
                 throw ErrorsForEmployees.MissingLastName
-            }  else if self.Entrant.streetAddress == "" {
+            }  else if self.Entrant.streetAddress == "" || self.Entrant.streetAddress == nil {
                 throw ErrorsForEmployees.MissingAddress
-            }  else if self.Entrant.city == "" {
+            }  else if self.Entrant.city == "" || self.Entrant.city == nil {
                 throw ErrorsForEmployees.MissingCity
-            }  else if self.Entrant.state == "" {
+            }  else if self.Entrant.state == "" || self.Entrant.state == nil {
                 throw ErrorsForEmployees.MissingState
-            }  else if self.Entrant.zip == "" {
+            }  else if self.Entrant.zip == "" || self.Entrant.zip == nil {
                 throw ErrorsForEmployees.MissingZip
+            } else if self.Entrant.Birthday == "" || self.Entrant.Birthday == nil {
+                throw ErrorsForEmployees.MissingDateOfBirth
+            } else if self.Entrant.SSN == "" || self.Entrant.SSN == nil {
+                throw ErrorsForEmployees.MissingSSN
+            } else if self.Entrant.project == "" || self.Entrant.project == nil {
+                throw ErrorsForEmployees.MissingProject
+            } else {
+                self.Entrant.passGenerated = true
+                return true
+            }
+        } else if Entrant is Manager {
+            guard let theManager = self.Entrant as? Manager else {throw ErrorsForEmployees.AllDetailsMissing}
+            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" && self.Entrant.SSN == "" && self.Entrant.Birthday == "" && theManager.ManagerType == "" {
+                self.Entrant.passGenerated = false
+                throw ErrorsForEmployees.AllDetailsMissing
+            } else if self.Entrant.firstName == "" || self.Entrant.firstName == nil {
+                throw ErrorsForEmployees.MissingFirstName
+            } else if self.Entrant.lastName == "" || self.Entrant.lastName == nil {
+                throw ErrorsForEmployees.MissingLastName
+            }  else if self.Entrant.streetAddress == "" || self.Entrant.streetAddress == nil {
+                throw ErrorsForEmployees.MissingAddress
+            }  else if self.Entrant.city == "" || self.Entrant.city == nil {
+                throw ErrorsForEmployees.MissingCity
+            }  else if self.Entrant.state == "" || self.Entrant.state == nil {
+                throw ErrorsForEmployees.MissingState
+            }  else if self.Entrant.zip == "" || self.Entrant.zip == nil {
+                throw ErrorsForEmployees.MissingZip
+            } else if self.Entrant.Birthday == "" || self.Entrant.Birthday == nil {
+                throw ErrorsForEmployees.MissingDateOfBirth
+            } else if self.Entrant.SSN == "" || self.Entrant.SSN == nil {
+                throw ErrorsForEmployees.MissingSSN
+            } else if theManager.ManagerType == "" || theManager.ManagerType == nil{
+                throw ErrorsForEmployees.MissingManagerType
             } else {
                 self.Entrant.passGenerated = true
                 return true
             }
         } else {
-            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" {
+            if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.zip == "" && self.Entrant.state == "" && self.Entrant.streetAddress == "" && self.Entrant.city == "" && self.Entrant.SSN == "" && self.Entrant.Birthday == "" {
                 self.Entrant.passGenerated = false
                 throw ErrorsForEmployees.AllDetailsMissing
-            } else if self.Entrant.firstName == "" {
+            } else if self.Entrant.firstName == "" || self.Entrant.firstName == nil {
                 throw ErrorsForEmployees.MissingFirstName
-            } else if self.Entrant.lastName == "" {
+            } else if self.Entrant.lastName == "" || self.Entrant.lastName == nil {
                 throw ErrorsForEmployees.MissingLastName
-            }  else if self.Entrant.streetAddress == "" {
+            }  else if self.Entrant.streetAddress == "" || self.Entrant.streetAddress == nil {
                 throw ErrorsForEmployees.MissingAddress
-            }  else if self.Entrant.city == "" {
+            }  else if self.Entrant.city == "" || self.Entrant.city == nil {
                 throw ErrorsForEmployees.MissingCity
-            }  else if self.Entrant.state == "" {
+            }  else if self.Entrant.state == "" || self.Entrant.state == nil {
                 throw ErrorsForEmployees.MissingState
-            }  else if self.Entrant.zip == "" {
+            }  else if self.Entrant.zip == "" || self.Entrant.zip == nil {
                 throw ErrorsForEmployees.MissingZip
+            } else if self.Entrant.Birthday == "" || self.Entrant.Birthday == nil {
+                throw ErrorsForEmployees.MissingDateOfBirth
+            } else if self.Entrant.SSN == "" || self.Entrant.SSN == nil {
+                throw ErrorsForEmployees.MissingSSN
             } else {
                 self.Entrant.passGenerated = true
                 return true
@@ -367,15 +408,15 @@ class passForVendor {
         if self.Entrant.firstName == "" && self.Entrant.lastName == "" && self.Entrant.dateOfVisit == "" && self.Entrant.dateOfBirth == "" && self.Entrant.vendorCompany == "" {
             self.Entrant.passGenerated = false
             throw ErrorsForEmployees.AllDetailsMissing
-        } else if self.Entrant.firstName == "" {
+        } else if self.Entrant.firstName == "" || self.Entrant.firstName == nil {
             throw ErrorsForEmployees.MissingFirstName
-        } else if self.Entrant.lastName == "" {
+        } else if self.Entrant.lastName == "" || self.Entrant.lastName == nil {
             throw ErrorsForEmployees.MissingLastName
-        }  else if self.Entrant.vendorCompany == "" {
+        }  else if self.Entrant.vendorCompany == "" || self.Entrant.vendorCompany == nil {
             throw ErrorsForEmployees.MissingVendorCompany
-        }  else if self.Entrant.dateOfBirth == "" {
+        }  else if self.Entrant.dateOfBirth == "" || self.Entrant.dateOfBirth == nil {
             throw ErrorsForEmployees.MissingDateOfBirth
-        }  else if self.Entrant.dateOfVisit == "" {
+        }  else if self.Entrant.dateOfVisit == "" || self.Entrant.dateOfVisit == nil {
             throw ErrorsForEmployees.MissingDateOfVisit
         } else {
             self.Entrant.passGenerated = true

@@ -264,10 +264,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @objc func CallOption2() {
         if track.last == .Guest {
             subButtonsForGuest(entrant: subOptionTwo)
-            print("This shit is working")
             print(subTracker)
         } else if track.last == .Employee {
             subButtonsForEmployees(entrant: subOptionTwo)
+        } else if track.last == .Manager {
+            subButtonsForManagers(entrant: subOptionTwo)
         }
     }
     
@@ -276,6 +277,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             subButtonsForGuest(entrant: subOptionOne)
         } else if track.last == .Employee {
             subButtonsForEmployees(entrant: subOptionOne)
+        } else if track.last == .Manager {
+            subButtonsForManagers(entrant: subOptionOne)
         }
     }
     
@@ -284,6 +287,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             subButtonsForGuest(entrant: subOptionThree)
         } else if track.last == .Employee {
             subButtonsForEmployees(entrant: subOptionThree)
+        } else if track.last == .Manager {
+            subButtonsForManagers(entrant: subOptionThree)
         }
     }
     
@@ -345,8 +350,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             subTracker.append(.Contractor)
         }
     }
-    
-    
+    var managerTrack: [ManagerTypes] = []
+    func subButtonsForManagers(entrant: UIButton) {
+        if entrant == subOptionOne {
+            managerTrack.append(.ShiftManager)
+        } else if entrant == subOptionTwo {
+            managerTrack.append(.GeneralManager)
+        } else if entrant == subOptionThree {
+            managerTrack.append(.SeniorManager)
+        }
+    }
     
     
     
@@ -377,6 +390,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             secondaryLevel.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
+        subOptionOne.setTitle("Shift Manager", for: .normal)
+        subOptionTwo.setTitle("General Manager", for: .normal)
+        subOptionThree.setTitle("Senior Manager", for: .normal)
+        secondaryLevel.addArrangedSubview(subOptionOne)
+        secondaryLevel.addArrangedSubview(subOptionTwo)
+        secondaryLevel.addArrangedSubview(subOptionThree)
+        
         
     }
     
@@ -490,7 +510,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 guard let City = CityField.text else {throw ErrorsForEmployees.MissingCity}
                 guard let State = StateField.text else {throw ErrorsForEmployees.MissingState}
                 guard let ZipCode = ZipField.text else {throw ErrorsForEmployees.MissingZip}
-                GuestEntrant = seasonPassGuest(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode)
+                guard let DOB = DateOfBirthField.text else {throw ErrorsForGuest.AgeIsMissing}
+                GuestEntrant = seasonPassGuest(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, DateOfBirth: DOB)
                 guard let guest = GuestEntrant else {throw ErrorsForPassGeneration.EnterUser}
                 ThePassForGuest = PassForGuest(Entrant: guest)
                 guard let pass = ThePassForGuest else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
@@ -534,6 +555,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             }catch ErrorsForEmployees.MissingZip {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForGuest.AgeIsMissing {
+                let alert = UIAlertController(title: "Error", message: ErrorsForGuest.AgeIsMissing.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -587,7 +612,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 guard let City = CityField.text else {throw ErrorsForEmployees.MissingCity}
                 guard let State = StateField.text else {throw ErrorsForEmployees.MissingState}
                 guard let ZipCode = ZipField.text else {throw ErrorsForEmployees.MissingZip}
-                EmployeeEntrant = FoodServices(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode)
+                guard let SSNO = SSNField.text else {throw ErrorsForEmployees.MissingSSN}
+                guard let DOB = DateOfBirthField.text else {throw ErrorsForEmployees.MissingDateOfBirth}
+                EmployeeEntrant = FoodServices(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, SSN: SSNO, DateOfBirth: DOB)
                 guard let employee = EmployeeEntrant else {throw ErrorsForPassGeneration.EnterUser}
                 ThePassForEmployee = PassForEmployee(Entrant: employee)
                 guard let pass = ThePassForEmployee else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
@@ -630,6 +657,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             }catch ErrorsForEmployees.MissingZip {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingSSN {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingSSN.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingDateOfBirth {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -641,7 +676,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 guard let City = CityField.text else {throw ErrorsForEmployees.MissingCity}
                 guard let State = StateField.text else {throw ErrorsForEmployees.MissingState}
                 guard let ZipCode = ZipField.text else {throw ErrorsForEmployees.MissingZip}
-                EmployeeEntrant = RideServices(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode)
+                guard let SSNO = SSNField.text else {throw ErrorsForEmployees.MissingSSN}
+                guard let DOB = DateOfBirthField.text else {throw ErrorsForEmployees.MissingDateOfBirth}
+                EmployeeEntrant = RideServices(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, SSN: SSNO, DateOfBirth: DOB)
                 guard let employee = EmployeeEntrant else {throw ErrorsForPassGeneration.EnterUser}
                 ThePassForEmployee = PassForEmployee(Entrant: employee)
                 guard let pass = ThePassForEmployee else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
@@ -684,6 +721,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             }catch ErrorsForEmployees.MissingZip {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingSSN {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingSSN.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingDateOfBirth {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -695,7 +740,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 guard let City = CityField.text else {throw ErrorsForEmployees.MissingCity}
                 guard let State = StateField.text else {throw ErrorsForEmployees.MissingState}
                 guard let ZipCode = ZipField.text else {throw ErrorsForEmployees.MissingZip}
-                EmployeeEntrant = MaintenanceServices(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode)
+                guard let SSNO = SSNField.text else {throw ErrorsForEmployees.MissingSSN}
+                guard let DOB = DateOfBirthField.text else {throw ErrorsForEmployees.MissingDateOfBirth}
+                EmployeeEntrant = MaintenanceServices(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, SSN: SSNO, DateOfBirth: DOB)
                 guard let employee = EmployeeEntrant else {throw ErrorsForPassGeneration.EnterUser}
                 ThePassForEmployee = PassForEmployee(Entrant: employee)
                 guard let pass = ThePassForEmployee else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
@@ -738,6 +785,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             }catch ErrorsForEmployees.MissingZip {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingSSN {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingSSN.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingDateOfBirth {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -749,7 +804,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 guard let City = CityField.text else {throw ErrorsForEmployees.MissingCity}
                 guard let State = StateField.text else {throw ErrorsForEmployees.MissingState}
                 guard let ZipCode = ZipField.text else {throw ErrorsForEmployees.MissingZip}
-                EmployeeEntrant = Manager(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode)
+                guard let SSNO = SSNField.text else {throw ErrorsForEmployees.MissingSSN}
+                guard let DOB = DateOfBirthField.text else {throw ErrorsForEmployees.MissingDateOfBirth}
+                guard let ManagerType = managerTrack.last else {throw ErrorsForEmployees.MissingManagerType}
+                EmployeeEntrant = Manager(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, SSN: SSNO, DateOfBirth: DOB, managerType: ManagerType.rawValue)
                 guard let employee = EmployeeEntrant else {throw ErrorsForPassGeneration.EnterUser}
                 ThePassForEmployee = PassForEmployee(Entrant: employee)
                 guard let pass = ThePassForEmployee else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
@@ -792,6 +850,18 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             }catch ErrorsForEmployees.MissingZip {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingZip.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingManagerType {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingManagerType.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingSSN {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingSSN.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingDateOfBirth {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -804,12 +874,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 guard let State = StateField.text else {throw ErrorsForEmployees.MissingState}
                 guard let ZipCode = ZipField.text else {throw ErrorsForEmployees.MissingZip}
                 guard let Project = ProjectField.text else {throw ErrorsForEmployees.MissingProject}
-                EmployeeEntrant = Contractor(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, project: Project)
+                guard let SSNO = SSNField.text else {throw ErrorsForEmployees.MissingSSN}
+                guard let DOB = DateOfBirthField.text else {throw ErrorsForEmployees.MissingDateOfBirth}
+                EmployeeEntrant = Contractor(firstName: FirstName, lastName: LastName, streetAddress: StreetAddress, city: City, state: State, zip: ZipCode, SSN: SSNO, DateOfBirth: DOB, project: Project)
                 guard let employee = EmployeeEntrant else {throw ErrorsForPassGeneration.EnterUser}
                 ThePassForEmployee = PassForEmployee(Entrant: employee)
                 guard let pass = ThePassForEmployee else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
                 result = try pass.generatePass()
-                
                 ThePassForVendor = nil
                 VendorEntrant = nil
                 GuestEntrant = nil
@@ -852,6 +923,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.present(alert, animated: true, completion: nil)
             } catch ErrorsForEmployees.MissingProject {
                 let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingProject.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingSSN {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingSSN.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch ErrorsForEmployees.MissingDateOfBirth {
+                let alert = UIAlertController(title: "Error", message: ErrorsForEmployees.MissingDateOfBirth.rawValue, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -1007,125 +1086,234 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if subTracker.last == .Child {
             DateOfBirthField.text = "24/06/2000"
             DateOfBirthField.isUserInteractionEnabled = true
+            
             SSNField.text = nil
             SSNField.isUserInteractionEnabled = false
+            
             ProjectField.text = nil
             ProjectField.isUserInteractionEnabled = false
+            
             FirstNameField.text = nil
             FirstNameField.isUserInteractionEnabled = false
+            
             LastNameField.text = nil
             LastNameField.isUserInteractionEnabled = false
+            
             CompanyField.text = nil
             CompanyField.isUserInteractionEnabled = false
+            
             DateOfVisitField.text = nil
             DateOfVisitField.isUserInteractionEnabled = false
+            
             StreetAddressField.text = nil
             StreetAddressField.isUserInteractionEnabled = false
+            
             CityField.text = nil
             CityField.isUserInteractionEnabled = false
+            
             StateField.text = nil
             StateField.isUserInteractionEnabled = false
+            
             ZipField.text = nil
             ZipField.isUserInteractionEnabled = false
         } else if subTracker.last == .Adult || subTracker.last == .VIP {
             DateOfBirthField.text = nil
+            DateOfBirthField.isUserInteractionEnabled = false
+            
             SSNField.text = nil
+            SSNField.isUserInteractionEnabled = false
+            
             ProjectField.text = nil
+            ProjectField.isUserInteractionEnabled = false
+            
             FirstNameField.text = nil
-            LastNameField.text = nil
-            CompanyField.text = nil
-            DateOfVisitField.text = nil
-            StreetAddressField.text = nil
-            CityField.text = nil
-            StateField.text = nil
-            ZipField.text = nil
-            DateOfBirthField.isUserInteractionEnabled = false
-            SSNField.isUserInteractionEnabled = false
-            ProjectField.isUserInteractionEnabled = false
             FirstNameField.isUserInteractionEnabled = false
+            
+            LastNameField.text = nil
             LastNameField.isUserInteractionEnabled = false
-            CompanyField.isUserInteractionEnabled = false
-            DateOfVisitField.isUserInteractionEnabled = false
-            StreetAddressField.isUserInteractionEnabled = false
-            CityField.isUserInteractionEnabled = false
-            StateField.isUserInteractionEnabled = false
-            ZipField.isUserInteractionEnabled = false
-        } else if subTracker.last == .FoodServices || subTracker.last == .RideServices || subTracker.last == .MaintenanceServices || subTracker.last == .Manager || subTracker.last == .SeasonPass {
-            DateOfBirthField.text = nil
-            SSNField.text = nil
-            ProjectField.text = nil
+            
             CompanyField.text = nil
-            DateOfVisitField.text = nil
-            
-            DateOfBirthField.isUserInteractionEnabled = false
-            SSNField.isUserInteractionEnabled = false
-            ProjectField.isUserInteractionEnabled = false
-            FirstNameField.text = "Jack"
-            LastNameField.text = "Pearson"
             CompanyField.isUserInteractionEnabled = false
-            DateOfVisitField.isUserInteractionEnabled = false
-            StreetAddressField.text = "Lower Mall"
-            CityField.text = "Vancouver"
-            StateField.text = "BC"
-            ZipField.text = "V6T1X1"
-        } else if subTracker.last == .Contractor {
-            DateOfBirthField.text = nil
-            SSNField.text = nil
-            CompanyField.text = nil
+            
             DateOfVisitField.text = nil
-            
-            
-            DateOfBirthField.isUserInteractionEnabled = false
-            ProjectField.text = ProjectClassifications.P2001.rawValue
-            FirstNameField.text = "Jack"
-            LastNameField.text = "Pearson"
-            CompanyField.isUserInteractionEnabled = false
             DateOfVisitField.isUserInteractionEnabled = false
-            SSNField.isUserInteractionEnabled = false
-            StreetAddressField.text = "Lower Mall"
-            CityField.text = "Vancouver"
-            StateField.text = "BC"
-            ZipField.text = "V6T1X1"
-        } else if subTracker.last == .Vendor {
-            SSNField.text = nil
-            ProjectField.text = nil
+            
             StreetAddressField.text = nil
-            CityField.text = nil
-            StateField.text = nil
-            ZipField.text = nil
-            
-            DateOfBirthField.text = "24/06/2000"
-            ProjectField.isUserInteractionEnabled = false
-            SSNField.isUserInteractionEnabled = false
-            FirstNameField.text = "Jack"
-            LastNameField.text = "Pearson"
-            CompanyField.text = VendorCompanies.NWElectrical.rawValue
-            DateOfVisitField.text = "20/02/2019"
             StreetAddressField.isUserInteractionEnabled = false
+            
+            CityField.text = nil
             CityField.isUserInteractionEnabled = false
+            
+            StateField.text = nil
             StateField.isUserInteractionEnabled = false
+            
+            ZipField.text = nil
+            ZipField.isUserInteractionEnabled = false
+        } else if subTracker.last == .FoodServices || subTracker.last == .RideServices || subTracker.last == .MaintenanceServices || subTracker.last == .Manager {
+            DateOfBirthField.text = "24/06/2000"
+            DateOfBirthField.isUserInteractionEnabled = true
+            
+            SSNField.text = "000000000"
+            SSNField.isUserInteractionEnabled = true
+            
+            ProjectField.text = nil
+            ProjectField.isUserInteractionEnabled = false
+            
+            FirstNameField.text = "Chirag"
+            FirstNameField.isUserInteractionEnabled = true
+            
+            LastNameField.text = "Jadhwani"
+            LastNameField.isUserInteractionEnabled = true
+            
+            CompanyField.text = nil
+            CompanyField.isUserInteractionEnabled = false
+            
+            DateOfVisitField.text = nil
+            DateOfVisitField.isUserInteractionEnabled = false
+            
+            StreetAddressField.text = "Lower Mall"
+            StreetAddressField.isUserInteractionEnabled = true
+            
+            CityField.text = "Vancouver"
+            CityField.isUserInteractionEnabled = true
+            
+            StateField.text = "British Columbia"
+            StateField.isUserInteractionEnabled = true
+            
+            ZipField.text = "00000"
+            ZipField.isUserInteractionEnabled = true
+        } else if subTracker.last == .Contractor {
+            DateOfBirthField.text = "24/06/2000"
+            DateOfBirthField.isUserInteractionEnabled = true
+            
+            SSNField.text = "00000000"
+            SSNField.isUserInteractionEnabled = true
+            
+            ProjectField.text = "2001"
+            ProjectField.isUserInteractionEnabled = true
+            
+            FirstNameField.text = "Chirag"
+            FirstNameField.isUserInteractionEnabled = true
+            
+            LastNameField.text = "Jadhwani"
+            LastNameField.isUserInteractionEnabled = true
+            
+            CompanyField.text = nil
+            CompanyField.isUserInteractionEnabled = false
+            
+            DateOfVisitField.text = nil
+            DateOfVisitField.isUserInteractionEnabled = false
+            
+            StreetAddressField.text = "Lower mall"
+            StreetAddressField.isUserInteractionEnabled = true
+            
+            CityField.text = "Vancouver"
+            CityField.isUserInteractionEnabled = true
+            
+            StateField.text = "British Columbia"
+            StateField.isUserInteractionEnabled = true
+            
+            ZipField.text = "00000"
+            ZipField.isUserInteractionEnabled = true
+        } else if subTracker.last == .Vendor {
+            DateOfBirthField.text = "24/06/2000"
+            DateOfBirthField.isUserInteractionEnabled = true
+            
+            SSNField.text = nil
+            SSNField.isUserInteractionEnabled = false
+            
+            ProjectField.text = nil
+            ProjectField.isUserInteractionEnabled = false
+            
+            FirstNameField.text = "Chirag"
+            FirstNameField.isUserInteractionEnabled = true
+            
+            LastNameField.text = "Jadhwani"
+            LastNameField.isUserInteractionEnabled = true
+            
+            CompanyField.text = "NWElectrical"
+            CompanyField.isUserInteractionEnabled = true
+            
+            DateOfVisitField.text = "21/02/2019"
+            DateOfVisitField.isUserInteractionEnabled = true
+            
+            StreetAddressField.text = nil
+            StreetAddressField.isUserInteractionEnabled = false
+            
+            CityField.text = nil
+            CityField.isUserInteractionEnabled = false
+            
+            StateField.text = nil
+            StateField.isUserInteractionEnabled = false
+            
+            ZipField.text = nil
             ZipField.isUserInteractionEnabled = false
         } else if subTracker.last == .Senior {
+            DateOfBirthField.text = "24/06/1950"
+            DateOfBirthField.isUserInteractionEnabled = true
+            
             SSNField.text = nil
+            SSNField.isUserInteractionEnabled = false
+            
             ProjectField.text = nil
-            StreetAddressField.text = nil
-            CityField.text = nil
-            StateField.text = nil
-            ZipField.text = nil
+            ProjectField.isUserInteractionEnabled = false
+            
+            FirstNameField.text = "Chirag"
+            FirstNameField.isUserInteractionEnabled = true
+            
+            LastNameField.text = "Jadhwani"
+            LastNameField.isUserInteractionEnabled = true
+            
             CompanyField.text = nil
             CompanyField.isUserInteractionEnabled = false
             
-            DateOfBirthField.text = "24/06/1950"
-            DateOfBirthField.isUserInteractionEnabled = true
-            ProjectField.isUserInteractionEnabled = false
-            SSNField.isUserInteractionEnabled = false
-            FirstNameField.text = "Jack"
-            LastNameField.text = "Pearson"
             DateOfVisitField.text = nil
+            DateOfVisitField.isUserInteractionEnabled = false
+            
+            StreetAddressField.text = nil
             StreetAddressField.isUserInteractionEnabled = false
+            
+            CityField.text = nil
             CityField.isUserInteractionEnabled = false
+            
+            StateField.text = nil
             StateField.isUserInteractionEnabled = false
+            
+            ZipField.text = nil
             ZipField.isUserInteractionEnabled = false
+        } else if subTracker.last == .SeasonPass {
+            DateOfBirthField.text = "24/06/2000"
+            DateOfBirthField.isUserInteractionEnabled = true
+            
+            SSNField.text = nil
+            SSNField.isUserInteractionEnabled = false
+            
+            ProjectField.text = nil
+            ProjectField.isUserInteractionEnabled = false
+            
+            FirstNameField.text = "Chirag"
+            FirstNameField.isUserInteractionEnabled = true
+            
+            LastNameField.text = "Jadhwani"
+            LastNameField.isUserInteractionEnabled = true
+            
+            CompanyField.text = nil
+            CompanyField.isUserInteractionEnabled = false
+            
+            DateOfVisitField.text = nil
+            DateOfVisitField.isUserInteractionEnabled = false
+            
+            StreetAddressField.text = "Lower mall"
+            StreetAddressField.isUserInteractionEnabled = true
+            
+            CityField.text = "Vancouver"
+            CityField.isUserInteractionEnabled = true
+            
+            StateField.text = "British Columbia"
+            StateField.isUserInteractionEnabled = true
+            
+            ZipField.text = "00000"
+            ZipField.isUserInteractionEnabled = true
         } else {
             let alert = UIAlertController(title: "Error", message: "Please select a user", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

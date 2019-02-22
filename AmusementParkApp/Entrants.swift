@@ -94,6 +94,7 @@ class Guest: validGuest, Passable {
     var city: String?
     var state: String?
     var zip: String?
+    var Birthday: String?
     var passGenerated: Bool = false
     var guestType: Entrants {
         return .ClassicGuest
@@ -122,7 +123,7 @@ class Child: Guest {
     override var guestType: Entrants {
         return .ChildGuest
     }
-    var Birthday: String?
+    
     override init() {
         
     }
@@ -154,7 +155,7 @@ class seasonPassGuest : Guest {
         self.propertiesEntered = false
     }
     
-    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String) {
+    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, DateOfBirth: String) {
         self.init()
         self.propertiesEntered = true
         self.firstName = firstName
@@ -163,6 +164,7 @@ class seasonPassGuest : Guest {
         self.city = city
         self.state = state
         self.zip = zip
+        self.Birthday = DateOfBirth
     }
     
     override var guestType: Entrants{
@@ -173,12 +175,26 @@ class seasonPassGuest : Guest {
     override var discountOffers: Bool {
         return true
     }
+    var Age: Int {
+        guard let DOB = self.Birthday else {return 0}
+        
+        let Components = DOB.components(separatedBy: "/")
+        var ageDOB: Date?
+        if DOB != "" {
+            ageDOB = Calendar.current.date(from: DateComponents(year:
+                Int(Components[2]), month: Int(Components[1]), day:
+                Int(Components[0])))
+            return ageDOB?.age ?? -1
+        } else {
+            return -1
+        }
+    }
     
 }
 
 class seniorGuest : Guest {
     var propertiesEntered: Bool?
-    var Birthday: String?
+    
     
     override init() {
         self.propertiesEntered = false
@@ -190,6 +206,20 @@ class seniorGuest : Guest {
         self.firstName = firstName
         self.lastName = lastName
         self.Birthday = DateOfBirth
+    }
+    var Age: Int {
+        guard let DOB = self.Birthday else {return 0}
+        
+        let Components = DOB.components(separatedBy: "/")
+        var ageDOB: Date?
+        if DOB != "" {
+            ageDOB = Calendar.current.date(from: DateComponents(year:
+                Int(Components[2]), month: Int(Components[1]), day:
+                Int(Components[0])))
+            return ageDOB?.age ?? -1
+        } else {
+            return -1
+        }
     }
     
     override var guestType: Entrants{
@@ -223,13 +253,37 @@ protocol Employee: Passable {
     var state: String? { get set }
     var zip: String? { get set }
     var project: String? {get set}
+    var SSN: String? {get set}
+    var Birthday: String? {get set}
     var accessAreas: [Area] {get set}
     var skipRideAccess: Bool {get set}
     var discountEligible: Bool { get set }
+    var Age: Int? {get set}
+    func ageCalculator()
     var availDiscount: [discountItems: Double] { get }
 }
 
 class FoodServices: Employee {
+    var Age: Int?
+    
+    func ageCalculator() {
+            guard let DOB = self.Birthday else {return}
+            
+            let Components = DOB.components(separatedBy: "/")
+            var ageDOB: Date?
+            if DOB != "" {
+                ageDOB = Calendar.current.date(from: DateComponents(year:
+                    Int(Components[2]), month: Int(Components[1]), day:
+                    Int(Components[0])))
+                self.Age = ageDOB?.age ?? -1
+            } else {
+                self.Age = -1
+            }
+    }
+    
+    
+    var SSN: String?
+    var Birthday: String?
     var propertiesEntered: Bool?
     let entrantType: Entrants = .FoodServices
     var passGenerated: Bool = false
@@ -247,7 +301,7 @@ class FoodServices: Employee {
         self.propertiesEntered = false
     }
     
-    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String) {
+    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, SSN: String, DateOfBirth: String) {
         self.init()
         self.propertiesEntered = true
         self.firstName = firstName
@@ -256,14 +310,38 @@ class FoodServices: Employee {
         self.city = city
         self.state = state
         self.zip = zip
+        self.SSN = SSN
+        self.Birthday = DateOfBirth
     }
     
     var accessAreas: [Area] = [.Amusement, .Kitchen]
     var skipRideAccess: Bool = false
     let availDiscount: [discountItems : Double] = [.food: 15.0, .merchandise: 25.0]
+    
 }
 
 class RideServices: Employee, Passable {
+    func ageCalculator() {
+        guard let DOB = self.Birthday else {return}
+        
+        let Components = DOB.components(separatedBy: "/")
+        var ageDOB: Date?
+        if DOB != "" {
+            ageDOB = Calendar.current.date(from: DateComponents(year:
+                Int(Components[2]), month: Int(Components[1]), day:
+                Int(Components[0])))
+            self.Age = ageDOB?.age ?? -1
+        } else {
+            self.Age = -1
+        }
+    }
+    
+    var Age: Int?
+    var Birthday: String?
+    var SSN: String?
+    
+    
+    
     var propertiesEntered: Bool?
     let entrantType: Entrants = .RideServices
     var passGenerated: Bool = false
@@ -279,7 +357,7 @@ class RideServices: Employee, Passable {
         self.propertiesEntered = false
     }
     
-    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String) {
+    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, SSN: String, DateOfBirth: String) {
         self.init()
         self.propertiesEntered = true
         self.firstName = firstName
@@ -288,6 +366,8 @@ class RideServices: Employee, Passable {
         self.city = city
         self.state = state
         self.zip = zip
+        self.SSN = SSN
+        self.Birthday = DateOfBirth
     }
     
     var accessAreas: [Area] = [.Amusement, .RideControl]
@@ -297,6 +377,25 @@ class RideServices: Employee, Passable {
 }
 
 class MaintenanceServices: Employee, Passable {
+    func ageCalculator() {
+        guard let DOB = self.Birthday else {return}
+        
+        let Components = DOB.components(separatedBy: "/")
+        var ageDOB: Date?
+        if DOB != "" {
+            ageDOB = Calendar.current.date(from: DateComponents(year:
+                Int(Components[2]), month: Int(Components[1]), day:
+                Int(Components[0])))
+            self.Age = ageDOB?.age ?? -1
+        } else {
+            self.Age = -1
+        }
+    }
+    
+    var Age: Int?
+    var Birthday: String?
+    var SSN: String?
+    
     var propertiesEntered: Bool?
     let entrantType: Entrants = .Maintenance
     var passGenerated: Bool = false
@@ -312,7 +411,7 @@ class MaintenanceServices: Employee, Passable {
         self.propertiesEntered = false
     }
     
-    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String) {
+    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, SSN: String, DateOfBirth: String) {
         self.init()
         self.propertiesEntered = true
         self.firstName = firstName
@@ -321,6 +420,8 @@ class MaintenanceServices: Employee, Passable {
         self.city = city
         self.state = state
         self.zip = zip
+        self.SSN = SSN
+        self.Birthday = DateOfBirth
     }
     
     var accessAreas: [Area] = [.Amusement, .Maintenance, .RideControl, .Kitchen]
@@ -329,8 +430,33 @@ class MaintenanceServices: Employee, Passable {
     var discountEligible: Bool = true
     let availDiscount: [discountItems : Double] = [.food: 15.0, .merchandise: 25.0]
 }
+enum ManagerTypes: String {
+    case ShiftManager = "Shift Manager"
+    case GeneralManager = "General Manager"
+    case SeniorManager = "Senior Manager"
+}
+
+
 
 class Manager: Employee, Passable {
+    func ageCalculator() {
+        guard let DOB = self.Birthday else {return}
+        
+        let Components = DOB.components(separatedBy: "/")
+        var ageDOB: Date?
+        if DOB != "" {
+            ageDOB = Calendar.current.date(from: DateComponents(year:
+                Int(Components[2]), month: Int(Components[1]), day:
+                Int(Components[0])))
+            self.Age = ageDOB?.age ?? -1
+        } else {
+            self.Age = -1
+        }
+    }
+    
+    var Age: Int?
+    var Birthday: String?
+    var SSN: String?
     var propertiesEntered: Bool?
     let entrantType: Entrants = .Manager
     var passGenerated: Bool = false
@@ -341,12 +467,12 @@ class Manager: Employee, Passable {
     var state: String?
     var zip: String?
     var project: String? = nil
-    
+    var ManagerType: String?
     init() {
         self.propertiesEntered = false
     }
     
-    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String) {
+    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, SSN: String, DateOfBirth: String, managerType: String) {
         self.init()
         self.propertiesEntered = true
         self.firstName = firstName
@@ -355,6 +481,9 @@ class Manager: Employee, Passable {
         self.city = city
         self.state = state
         self.zip = zip
+        self.SSN = SSN
+        self.Birthday = DateOfBirth
+        self.ManagerType = managerType
     }
     
     var accessAreas: [Area] = [.Amusement, .Kitchen, .Maintenance, .Office, .RideControl]
@@ -367,6 +496,24 @@ class Manager: Employee, Passable {
 
 
 class Contractor: Employee, Passable {
+    func ageCalculator() {
+        guard let DOB = self.Birthday else {return}
+        
+        let Components = DOB.components(separatedBy: "/")
+        var ageDOB: Date?
+        if DOB != "" {
+            ageDOB = Calendar.current.date(from: DateComponents(year:
+                Int(Components[2]), month: Int(Components[1]), day:
+                Int(Components[0])))
+            self.Age = ageDOB?.age ?? -1
+        } else {
+            self.Age = -1
+        }
+    }
+    
+    var Age: Int?
+    var Birthday: String?
+    var SSN: String?
     var propertiesEntered: Bool?
     let entrantType: Entrants = .contractor
     var passGenerated: Bool = false
@@ -382,7 +529,7 @@ class Contractor: Employee, Passable {
         self.propertiesEntered = false
     }
     
-    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, project: String) {
+    required convenience init(firstName: String, lastName: String, streetAddress: String, city: String, state: String, zip: String, SSN: String, DateOfBirth: String, project: String) {
         self.init()
         self.propertiesEntered = true
         self.firstName = firstName
@@ -391,6 +538,8 @@ class Contractor: Employee, Passable {
         self.city = city
         self.state = state
         self.zip = zip
+        self.SSN = SSN
+        self.Birthday = DateOfBirth
         self.project = project
     }
     
