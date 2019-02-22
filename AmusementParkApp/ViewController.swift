@@ -83,8 +83,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //
     
     
-    let Projects: [String] = [ProjectClassifications.P1001.rawValue, ProjectClassifications.P1002.rawValue, ProjectClassifications.P1003.rawValue, ProjectClassifications.P2001.rawValue, ProjectClassifications.P2002.rawValue]
-    let Companies: [String] = [VendorCompanies.Acme.rawValue, VendorCompanies.Fedex.rawValue, VendorCompanies.NWElectrical.rawValue, VendorCompanies.Orkin.rawValue]
+    let Projects: [String] = ["",ProjectClassifications.P1001.rawValue, ProjectClassifications.P1002.rawValue, ProjectClassifications.P1003.rawValue, ProjectClassifications.P2001.rawValue, ProjectClassifications.P2002.rawValue]
+    let Companies: [String] = ["",VendorCompanies.Acme.rawValue, VendorCompanies.Fedex.rawValue, VendorCompanies.NWElectrical.rawValue, VendorCompanies.Orkin.rawValue]
     
     @IBOutlet weak var firstLevel: UIStackView!
 
@@ -140,12 +140,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var FirstNameField: UITextField!
     @IBOutlet weak var LastNameField: UITextField!
     @IBOutlet weak var CompanyField: UITextField!
+    @IBOutlet weak var DateOfVisitField: UITextField!
     @IBOutlet weak var StreetAddressField: UITextField!
     @IBOutlet weak var CityField: UITextField!
     @IBOutlet weak var StateField: UITextField!
     @IBOutlet weak var ZipField: UITextField!
     @IBOutlet weak var secondaryLevel: UIStackView!
-    @IBOutlet weak var DateOfVisitField: UITextField!
+    
     
     
     let birthdayPicker = UIDatePicker()
