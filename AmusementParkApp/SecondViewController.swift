@@ -24,7 +24,6 @@ extension UIView {
 
 class SecondViewController: UIViewController {
     override func viewDidLoad() {
-        print("Statement executed")
         fillDataFor()
         AmusementButton.isEnabled = false
         AmusementButton.isHidden = true
@@ -120,7 +119,6 @@ class SecondViewController: UIViewController {
             TestResults.backgroundColor = UIColor.red
         }
         
-        print(result)
         AmusementButton.isEnabled = false
         AmusementButton.isHidden = true
         KitchenButton.isEnabled = false

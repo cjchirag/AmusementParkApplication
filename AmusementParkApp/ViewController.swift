@@ -43,7 +43,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(track)
         subOptionOne.addTarget(self, action: #selector(CallOption1), for: UIControlEvents.touchUpInside)
         subOptionTwo.addTarget(self, action: #selector(CallOption2), for: UIControlEvents.touchUpInside)
         subOptionThree.addTarget(self, action: #selector(CallOption3), for: UIControlEvents.touchUpInside)
@@ -55,12 +54,38 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         CompanyField.inputView = CompanyPicker
         showDatePicker(sender: birthdayPicker)
         showDatePicker(sender: visitPicker)
+        DateOfBirthField.text = nil
+        DateOfBirthField.isUserInteractionEnabled = false
+        
+        SSNField.text = nil
+        SSNField.isUserInteractionEnabled = false
+        
+        ProjectField.text = nil
+        ProjectField.isUserInteractionEnabled = false
+        
         FirstNameField.text = nil
+        FirstNameField.isUserInteractionEnabled = false
+        
         LastNameField.text = nil
+        LastNameField.isUserInteractionEnabled = false
+        
+        CompanyField.text = nil
+        CompanyField.isUserInteractionEnabled = false
+        
+        DateOfVisitField.text = nil
+        DateOfVisitField.isUserInteractionEnabled = false
+        
         StreetAddressField.text = nil
+        StreetAddressField.isUserInteractionEnabled = false
+        
         CityField.text = nil
+        CityField.isUserInteractionEnabled = false
+        
         StateField.text = nil
+        StateField.isUserInteractionEnabled = false
+        
         ZipField.text = nil
+        ZipField.isUserInteractionEnabled = false
         firstLevel.addBackground(color: UIColor(red: 30/255, green: 101/255, blue: 109/255, alpha: 1.0))
         subOptionOne.setTitleColor(UIColor.white, for: .normal)
         subOptionTwo.setTitleColor(UIColor.white, for: .normal)
@@ -238,7 +263,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     @IBAction func toActivateGuest(_ sender: Any) {
         track.append(.Guest)
-        print(track)
+
         for view in secondaryLevel.arrangedSubviews {
             secondaryLevel.removeArrangedSubview(view)
             view.removeFromSuperview()
@@ -253,7 +278,38 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         secondaryLevel.addArrangedSubview(subOptionThree)
         secondaryLevel.addArrangedSubview(subOptionFour)
         secondaryLevel.addArrangedSubview(subOptionFive)
-
+        DateOfBirthField.text = ""
+        DateOfBirthField.isUserInteractionEnabled = true
+        
+        SSNField.text = nil
+        SSNField.isUserInteractionEnabled = false
+        
+        ProjectField.text = nil
+        ProjectField.isUserInteractionEnabled = false
+        
+        FirstNameField.text = ""
+        FirstNameField.isUserInteractionEnabled = true
+        
+        LastNameField.text = ""
+        LastNameField.isUserInteractionEnabled = true
+        
+        CompanyField.text = nil
+        CompanyField.isUserInteractionEnabled = false
+        
+        DateOfVisitField.text = nil
+        DateOfVisitField.isUserInteractionEnabled = false
+        
+        StreetAddressField.text = ""
+        StreetAddressField.isUserInteractionEnabled = true
+        
+        CityField.text = ""
+        CityField.isUserInteractionEnabled = true
+        
+        StateField.text = ""
+        StateField.isUserInteractionEnabled = true
+        
+        ZipField.text = ""
+        ZipField.isUserInteractionEnabled = true
     }
     
     
@@ -265,7 +321,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @objc func CallOption2() {
         if track.last == .Guest {
             subButtonsForGuest(entrant: subOptionTwo)
-            print(subTracker)
+            
         } else if track.last == .Employee {
             subButtonsForEmployees(entrant: subOptionTwo)
         } else if track.last == .Manager {
@@ -381,7 +437,39 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         secondaryLevel.addArrangedSubview(subOptionTwo)
         secondaryLevel.addArrangedSubview(subOptionThree)
         secondaryLevel.addArrangedSubview(subOptionFour)
-    
+        
+        DateOfBirthField.text = ""
+        DateOfBirthField.isUserInteractionEnabled = true
+        
+        SSNField.text = ""
+        SSNField.isUserInteractionEnabled = true
+        
+        ProjectField.text = ""
+        ProjectField.isUserInteractionEnabled = true
+        
+        FirstNameField.text = ""
+        FirstNameField.isUserInteractionEnabled = true
+        
+        LastNameField.text = ""
+        LastNameField.isUserInteractionEnabled = true
+        
+        CompanyField.text = nil
+        CompanyField.isUserInteractionEnabled = false
+        
+        DateOfVisitField.text = nil
+        DateOfVisitField.isUserInteractionEnabled = false
+        
+        StreetAddressField.text = ""
+        StreetAddressField.isUserInteractionEnabled = true
+        
+        CityField.text = ""
+        CityField.isUserInteractionEnabled = true
+        
+        StateField.text = ""
+        StateField.isUserInteractionEnabled = true
+        
+        ZipField.text = ""
+        ZipField.isUserInteractionEnabled = true
     }
     
     @IBAction func toActivateManager(_ sender: Any) {
@@ -397,7 +485,38 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         secondaryLevel.addArrangedSubview(subOptionOne)
         secondaryLevel.addArrangedSubview(subOptionTwo)
         secondaryLevel.addArrangedSubview(subOptionThree)
+        DateOfBirthField.text = ""
+        DateOfBirthField.isUserInteractionEnabled = true
         
+        SSNField.text = ""
+        SSNField.isUserInteractionEnabled = true
+        
+        ProjectField.text = nil
+        ProjectField.isUserInteractionEnabled = false
+        
+        FirstNameField.text = ""
+        FirstNameField.isUserInteractionEnabled = true
+        
+        LastNameField.text = ""
+        LastNameField.isUserInteractionEnabled = true
+        
+        CompanyField.text = nil
+        CompanyField.isUserInteractionEnabled = false
+        
+        DateOfVisitField.text = nil
+        DateOfVisitField.isUserInteractionEnabled = false
+        
+        StreetAddressField.text = ""
+        StreetAddressField.isUserInteractionEnabled = true
+        
+        CityField.text = ""
+        CityField.isUserInteractionEnabled = true
+        
+        StateField.text = ""
+        StateField.isUserInteractionEnabled = true
+        
+        ZipField.text = ""
+        ZipField.isUserInteractionEnabled = true
         
     }
     
@@ -408,7 +527,38 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             secondaryLevel.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
-
+        DateOfBirthField.text = ""
+        DateOfBirthField.isUserInteractionEnabled = true
+        
+        SSNField.text = nil
+        SSNField.isUserInteractionEnabled = false
+        
+        ProjectField.text = nil
+        ProjectField.isUserInteractionEnabled = false
+        
+        FirstNameField.text = ""
+        FirstNameField.isUserInteractionEnabled = true
+        
+        LastNameField.text = ""
+        LastNameField.isUserInteractionEnabled = true
+        
+        CompanyField.text = ""
+        CompanyField.isUserInteractionEnabled = true
+        
+        DateOfVisitField.text = ""
+        DateOfVisitField.isUserInteractionEnabled = true
+        
+        StreetAddressField.text = nil
+        StreetAddressField.isUserInteractionEnabled = false
+        
+        CityField.text = nil
+        CityField.isUserInteractionEnabled = false
+        
+        StateField.text = nil
+        StateField.isUserInteractionEnabled = false
+        
+        ZipField.text = nil
+        ZipField.isUserInteractionEnabled = false
     }
     
     
@@ -488,7 +638,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 ThePassForGuest = PassForGuest(Entrant: guest)
                 guard let pass = ThePassForGuest else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
                 result = try pass.generatePass()
-                print(pass.Entrant.passGenerated)
+                
                 ThePassForVendor = nil
                 VendorEntrant = nil
                 EmployeeEntrant = nil
@@ -517,7 +667,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 ThePassForGuest = PassForGuest(Entrant: guest)
                 guard let pass = ThePassForGuest else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
                 result = try pass.generatePass()
-                print(pass.Entrant.passGenerated)
+                
                 ThePassForVendor = nil
                 VendorEntrant = nil
                 EmployeeEntrant = nil
@@ -578,7 +728,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 ThePassForGuest = PassForGuest(Entrant: guest)
                 guard let pass = ThePassForGuest else {throw ErrorsForPassGeneration.ErrorInPassGeneration}
                 result = try pass.generatePass()
-                print(pass.Entrant.passGenerated)
+                
                 ThePassForVendor = nil
                 VendorEntrant = nil
                 EmployeeEntrant = nil
@@ -1109,7 +1259,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     @IBAction func populateData(_ sender: Any) {
         if subTracker.last == .Child {
-            DateOfBirthField.text = "24/06/2000"
+            DateOfBirthField.text = "24/06/2018"
             DateOfBirthField.isUserInteractionEnabled = true
             
             SSNField.text = nil

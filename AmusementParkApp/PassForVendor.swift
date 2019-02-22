@@ -10,11 +10,7 @@ extension String  {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }
-/// This protocol is to couple the two types of pass.. struct for guest pass and class for employee pass.
-protocol aPass {
-    func swipeAt(area: Area) throws -> Bool
-    mutating func generatePass() throws -> Bool
-}
+
 /// Errors that could arise during swipe.
 enum swipeErrors: String, Error {
     case accessDenied = "Dear passholder, you do not have access to this particular area in the facility"

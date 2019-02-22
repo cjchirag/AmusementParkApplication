@@ -15,7 +15,7 @@ enum ErrorsForGuest: String, Error {
 }
 
 import Foundation
-class PassForGuest: aPass {
+class PassForGuest {
     var Entrant: Guest
     
     init(Entrant: Guest) {
@@ -30,7 +30,6 @@ class PassForGuest: aPass {
             
             if childGuest.Age < 5 && childGuest.Age >= 0 && childGuest.Birthday != "" {
                 self.Entrant.passGenerated = true
-                print("The age is \(childGuest.Age)")
                 return true
             } else if childGuest.Age == -1 {
                 throw ErrorsForGuest.AgeIsMissing

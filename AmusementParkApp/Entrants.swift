@@ -24,15 +24,6 @@ import Foundation
 
 
 
-
-
-
-// 1. -> Define entrant types
-
-
-
-
-
 extension Date {
     var age: Int {
         return Calendar.current.dateComponents([.year], from: self, to: Date()).year!
@@ -245,7 +236,7 @@ class seniorGuest : Guest {
 
 protocol Employee: Passable {
     var entrantType: Entrants { get }
-    var propertiesEntered: Bool? { get set } // Since Entrant's optional stored properties can be initialised at two instances (during Entrants instance and PassForEmployee instance), this stored properties allows the personal information to be initialised only once. If at the beginning, Entrant object initialises all the stored properties.. later at PassForEmployee init method would be ineffective.
+    var propertiesEntered: Bool? { get set }
     var passGenerated: Bool {get set}
     var firstName: String? { get set }
     var lastName: String? { get set }
